@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基于行为监测的SPOC在线学习平台</title>
+</head>
+<body>
+<div class="header" th:fragment="head">
+    <div class="header-container">
+        <div class="header-container-item3">
+            <ul class="login-item">
+                <li class="login-item-li">
+                    <p>[[${session.loginUser}]]</p>
+                    <!-- 已登陆后显示的框 -->
+                    <div class="login-in">
+                        <div class="login-in-item2">
+                            <ul class="login-in-item2-center">
+                                <li><a th:href="@{/user/myInfo/}+${session.id}">我的信息</a></li>
+                                <li><a th:href="@{/logout/}">安全退出</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <script>
+                $(document).ready(function(){
+                    // 鼠标移到头像上显示信息框
+                    $(".login-item-li").hover(function(){
+                        $(".login-in").css("display","block");
+                    },function(){
+                        $(".login-in").css("display","none");
+                    });
+                    $(".login-in").hover(function(){
+                        $(".login-in").css("display","block");
+                    },function(){
+                        $(".login-in").css("display","none");
+                    });
+                });
+            </script>
+        </div>
+        <!-- 搜索框 -->
+        <div class="header-container-item4">
+            <!-- 搜索标签 -->
+            <div class="search-tags">
+                <a th:href="@{/user/dogs/}">狗狗</a>
+            </div>
+            <!-- 搜索框 -->
+            <div class="search-box">
+                <input type="text">
+            </div>
+            <!-- 搜索按钮 -->
+            <div class="search-buttn">
+                <a class="glyphicon glyphicon-search"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- content -->
+<div class="content1" th:fragment="content">
+    <div class="content1-container">
+        <!-- 学科 -->
+        <div class="content1-container-item1">
+            <span class="content1-span"><b>宠物：</b></span>
+            <ul class="content1-ul">
+                <li class="active">
+                    <a style="color: white;text-decoration: none" th:href="@{/user/pets/}">所有</a>
+                </li>
+                <li class="active">
+                    <a style="color: white;text-decoration: none" th:href="@{/user/dogs/}">狗</a>
+                </li>
+                <li class="active">
+                    <a style="color: white;text-decoration: none" th:href="@{/user/cats/}">猫</a>
+                </li>
+            </ul>
+        </div>
+        <!-- 分类 -->
+        <div class="content1-container-item2">
+            <span class="content1-span"><b>物品：</b></span>
+            <ul class="content1-ul">
+                <li class="active">
+                    <a style="color: white;text-decoration: none" th:href="@{/user/goods/}">所有</a>
+                </li>
+                <li class="active">
+                    <a style="color: white;text-decoration: none" th:href="@{/user/toys/}">玩具</a>
+                </li>
+                <li class="active">
+                    <a style="color: white;text-decoration: none" th:href="@{/user/foods/}">食品</a>
+                </li>
+            </ul>
+        </div>
+        <script>
+            window.onload = function(){
+                var oDiv = document.getElementById("difficulty");
+                var oLi = oDiv.getElementsByTagName("li");
+                var special = document.getElementById("special");
+                var oUl = special.getElementsByClassName("special");
+                for(var i=0;i<oLi.length;i++){
+                    oLi[i].index = i;
+                    oLi[i].onclick = function(){
+                        // 清除其他oLi的className以达到背景不变成绿色
+                        for(var j=0;j<oLi.length;j++){
+                            oLi[j].className = '';
+                        }
+                        // 使用this对当前按钮添加className
+                        this.className = 'active';
+
+                        for(var j=0;j<oUl.length;j++){
+                            oUl[j].style.display = '';
+                            oUl[j].removeAttribute("id");
+                        }
+                        // 显示当前的ul
+                        oUl[this.index].style.display = 'block';
+                        oUl[this.index].id = 'special1';
+                    };
+                }
+            };
+        </script>
+    </div>
+</div>
+</body>
+</html>

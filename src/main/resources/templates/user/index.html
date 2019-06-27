@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap-3.3.7-dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <script th:src="@{/jquery-3.3.1/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
+    <script>
+        function choose() {
+            if(confirm("你确定要收养这条宠物么")){
+                return true;
+            }
+            return false;
+        }
+    </script>
+</head>
+<body>
+<!-- header -->
+<div th:replace="commons/frameUser::head(activeUri='index')"></div>
+<!-- content -->
+<div th:replace="commons/frameUser::content"></div>
+<div class="content2">
+    <div class="content2-container">
+        <ul class="content2-ul" th:each="pet:${pet}">
+            <li>
+                <a href="#" class="content-ul-link">
+                    <div class="content2-item1-img">
+                        <img th:if="${pet.photo}==null" th:src="@{/img/1.jpg}" alt="" class="responsive-img">
+                        <img th:if="${pet.photo}!=null" th:src="${pet.photo}" alt="" class="responsive-img">
+                    </div>
+                    <div class="content2-item1-text">
+                        <div class="content2-item1-text-item1">
+                            <p>[[${pet.breed}]]</p>
+                        </div>
+                        <div class="content2-item1-text-item2">
+                            <span class="difficulty">[[${pet.type}]]</span>
+                            <span>年龄：[[${pet.age}]]岁</span>
+                        </div>
+                        <div class="content2-item1-text-item3">
+                            <a class="btn btn-sm btn-primary" th:href="@{/user/adopt/}+${pet.id}" onclick="return choose()">收养</a>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div style="position: relative;left: 500px">
+        <ul class="pagination pagination-lg">
+            <li><a th:href="@{/user/}+${pets}+'/'+${pageNum-1}">&laquo;</a></li>
+            <li th:each="i:${#numbers.sequence(1,numPages)}"><a th:href="@{/user/}+${pets}+'/'+${i}" th:text="${i}"></a></li>
+            <li><a th:href="@{/user/}+${pets}+'/'+${pageNum+1}">&raquo;</a></li>
+        </ul>
+    </div>
+</div>
+<!-- footer -->
+<div class="footer">
+    <div class="footer-container">
+        <!-- 底部第一块内容区 -->
+        <div class="footer-container-item1">
+            <div class="footer-container-item1-link">
+                <ul class="footer-link-ul">
+                    <li><a href="">网站首页</a></li>
+                    <li><a href="">联系我们</a></li>
+                    <li><a href="">帮助中心</a></li>
+                    <li><a href="">问题反馈</a></li>
+                    <li><a href="">学习qq群</a></li>
+                </ul>
+            </div>
+            <div class="footer-container-item1-copyright">
+                <p>Copyright © 2019 allan.com All Rights Reserved | 京ICP备 12003892号-11 </p>
+            </div>
+        </div>
+        <!-- 底部第二块内容区 -->
+        <div class="footer-container-item2">
+            <ul>
+                <li class="footer-item2-contact-phone">13281289371</li>
+                <li class="footer-item2-contact-other">免费咨询热线</li>
+                <li class="footer-item2-contact-other">邮箱：1825956830@qq.com</li>
+                <li class="footer-item2-contact-other">官方群：1825956830</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

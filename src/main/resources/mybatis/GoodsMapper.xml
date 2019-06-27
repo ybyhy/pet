@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cdu.yhy.mapper.GoodsMapper" >
+    <resultMap id="BaseResultMap" type="cn.edu.cdu.yhy.bean.Goods" >
+        <constructor >
+            <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="introduce" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="price" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="stock" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, name, introduce,type ,price, stock
+    </sql>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.util.List">
+    select * from goods
+    </select>
+    <insert id="insertGoods" parameterType="cn.edu.cdu.yhy.bean.Goods" >
+    insert into goods (name,introduce,type,price,stock) values (#{name},#{introduce},#{type},#{price},#{stock})
+  </insert>
+    <select id="selectGoodsById" resultMap="BaseResultMap" parameterType="cn.edu.cdu.yhy.bean.Goods">
+    select * from goods where id=#{id}
+  </select>
+    <update id="updateGoodsById" parameterType="cn.edu.cdu.yhy.bean.Goods" >
+    update goods
+    set name = #{name},
+        introduce = #{introduce} ,
+        type = #{type} ,
+        price = #{price} ,
+        stock = #{stock}
+    where id = #{id}
+  </update>
+    <delete id="deleteGoodsById" parameterType="java.lang.Integer" >
+    delete from goods
+    where id = #{id}
+  </delete>
+    <select id="selectGoodsByType" resultMap="BaseResultMap" parameterType="java.util.List">
+    select * from goods where type=#{type}
+  </select>
+</mapper>

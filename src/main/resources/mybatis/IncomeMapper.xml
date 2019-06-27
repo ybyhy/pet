@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cdu.yhy.mapper.IncomeMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.cdu.yhy.bean.Income" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="date" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="income" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, date, income, name
+  </sql>
+  <select id="selectIncomeByLastSeven" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select * from income order by id desc limit 7
+  </select>
+</mapper>

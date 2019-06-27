@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+</head>
+<body>
+<!--引入topbar-->
+<div th:replace="commons/frame::topbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <!--引入sidebar-->
+        <div th:replace="commons/frame::#sidebar(activeUri='users')"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <form th:action="@{/shopkeeper/goods/updateGoods}" method="post">
+                <input type="hidden" name="id" th:value="${goods.id}">
+                <div class="form-group">
+                    <label>物品名称</label>
+                    <input name="name" type="text" class="form-control" th:value="${goods.name}">
+                </div>
+                <div class="form-group">
+                    <label>简介</label>
+                    <input name="introduce" type="text" class="form-control" th:value="${goods.introduce}">
+                </div>
+                <div class="form-group">
+                    <label>类型</label><br/>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="type" value="1" th:checked="${goods.type==1}">
+                        <label class="form-check-label">食品</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="type" value="0" th:checked="${goods.type==0}">
+                        <label class="form-check-label">玩具</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>价格</label>
+                    <input name="price" type="text" class="form-control" th:value="${goods.price}">
+                </div>
+                <div class="form-group">
+                    <label>库存</label>
+                    <input name="stock" type="text" class="form-control" th:value="${goods.stock}">
+                </div>
+                <button type="submit" class="btn btn-primary">修改</button>
+            </form>
+        </main>
+    </div>
+</div>
+</body>
+</html>

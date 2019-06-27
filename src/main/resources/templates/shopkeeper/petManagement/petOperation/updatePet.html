@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="Content-Type" content="multipart/form-data;charset=UTF-8">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+</head>
+<body>
+<!--引入topbar-->
+<div th:replace="commons/frame::topbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <!--引入sidebar-->
+        <div th:replace="commons/frame::#sidebar(activeUri='users')"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <form th:action="@{/shopkeeper/pet/updatePet}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" th:value="${pet.id}">
+                <div class="form-group">
+                    <label>宠物类型</label>
+                    <input name="type" type="text" class="form-control" th:value="${pet.type}">
+                </div>
+                <div class="form-group">
+                    <label>品种</label>
+                    <input name="breed" type="text" class="form-control" th:value="${pet.breed}">
+                </div>
+                <div class="form-group">
+                    <label>姓名</label>
+                    <input name="name" type="text" class="form-control" th:value="${pet.name}">
+                </div>
+                <div class="form-group">
+                    <label>性别</label><br/>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="1" th:checked="${pet.gender==1}">
+                        <label class="form-check-label">男</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="0" th:checked="${pet.gender==0}">
+                        <label class="form-check-label">女</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>年龄</label>
+                    <input name="age" type="text" class="form-control" th:value="${pet.age}">
+                </div>
+                <div class="form-group">
+                    <label>图片</label>
+                    <input id="photo" name="photo" type="file" class="form-control" th:value="${pet.photo}" onchange="setImg(this)">
+                </div>
+                <button type="submit" class="btn btn-primary">修改</button>
+            </form>
+        </main>
+    </div>
+</div>
+</body>
+<script>
+    function setImg(obj) {
+        var f = $(obj).val();
+        if (f == null || f == undefined || f == '')
+            return false;
+        if (!/\.(?:png|jpg|bmp|gif|PNG|JPG|BMP|GIF)$/.test(f)) {
+            alert("请选择图片!");
+            $(obj).val('');
+            return false;
+        }
+    }
+</script>
+</html>

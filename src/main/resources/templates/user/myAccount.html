@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+</head>
+<body>
+<!--引入topbar-->
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:fragment="topbar">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">[[${session.loginUser}]]</a>
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" th:href="@{../..}">登出</a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <!--引入sidebar-->
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" id="sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active"
+                           href="#" th:href="@{/user/myInfo/}+${user.id}">
+                            我的信息
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="#" th:href="@{/user/myAccount/}+${user.id}">
+                            我的账户
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="#" th:href="@{/user/index/}+${user.id}">
+                            首页
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="form-group">
+                <label>我的余额</label>
+                <input name="balance" type="text" class="form-control" th:value="${user.balance}">
+            </div>
+            <form th:action="@{/user/recharge/}+${user.id}" method="post">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <span class="form-group">
+                    <input name="balance" type="text" class="form-control" th:value="10">
+                </span>
+                <button type="submit" class="btn btn-primary">充值</button>
+            </form>
+        </main>
+    </div>
+</div>
+</body>
+</html>

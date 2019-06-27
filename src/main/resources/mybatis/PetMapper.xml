@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.cdu.yhy.mapper.PetMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.cdu.yhy.bean.Pet" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="breed" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="age" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="gender" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.edu.cdu.yhy.bean.Pet" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="breed" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="age" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="gender" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="photo" jdbcType="LONGVARBINARY" javaType="_byte[]" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, type, breed, age, gender
+  </sql>
+  <sql id="Blob_Column_List" >
+    photo
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.util.List">
+    select * from pet
+  </select>
+  <insert id="insertPet" parameterType="cn.edu.cdu.yhy.bean.Pet" >
+    insert into pet (type,breed,age,gender) values (#{type} ,#{breed},#{age},#{gender} )
+  </insert>
+  <select id="selectPetById" resultMap="BaseResultMap" parameterType="cn.edu.cdu.yhy.bean.Pet">
+    select * from pet where id=#{id}
+  </select>
+  <update id="updatePetById" parameterType="cn.edu.cdu.yhy.bean.Pet" >
+    update pet
+    set name = #{name},
+        gender = #{gender},
+        age = #{age},
+        breed = #{breed},
+        type = #{type},
+        photo=#{photo}
+    where id = #{id}
+  </update>
+  <delete id="deletePetById" parameterType="java.lang.Integer" >
+    delete from pet
+    where id = #{id}
+  </delete>
+  <select id="selectDogByType" resultMap="BaseResultMap" parameterType="cn.edu.cdu.yhy.bean.Pet">
+    select * from pet where type=#{type}
+  </select>
+</mapper>
